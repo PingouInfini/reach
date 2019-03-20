@@ -13,7 +13,7 @@ def treatment(user):
     get_metadata_from_username(user, config)
     download_img_from_metadata(user, config)
 
-    check_fileinfo(config.get('GoogleImages', 'googleimages.outputdirectory') + "/" + user)
+    #check_fileinfo(config.get('GoogleImages', 'googleimages.outputdirectory') + "/" + user)
 
 
 def get_metadata_from_username(user, config):
@@ -25,14 +25,15 @@ def get_metadata_from_username(user, config):
     # creating list of arguments
     arguments = {"keywords": user, "limit": limit,
                  "extract_metadata": True, "no_download": True,
-                 "output_directory": "logs", "no_directory": True}
+                 "output_directory": "logs", "no_directory": True,
+                 "type":"face"}
     # passing the arguments to the function and get metadata
     response.download(arguments)
 
 
 def download_img_from_metadata(user, config):
     fname = "logs/" + user + ".json"
-    output_directory = config.get('GoogleImages', 'googleimages.outputdirectory') + "/" + user
+    output_directory = "google/"+config.get('GoogleImages', 'googleimages.outputdirectory') + "/" + user
 
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
