@@ -23,3 +23,12 @@ INFO : *<category.property>* from  properties.config
 2) Get google images from each line of metadata file
     - each image is saved in *<googleimages.limit>*/"username"/1-xxxxxxx.jpg
     - all image are prefixed with index
+    
+## Trick
+Change "twitterCredential" and hide the changes to git:
+     
+    git update-index --assume-unchanged twitter/twitterCredentials.txt
+    
+To track the changes again:
+
+    git update-index --no-assume-unchanged <file>

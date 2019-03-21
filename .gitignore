@@ -6,6 +6,7 @@ stashed
 *.json
 *.jsonl
 *.txt
+!requirements.txt
 *.pickle
 *.png
 *.jpg
