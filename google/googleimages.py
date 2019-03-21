@@ -3,20 +3,21 @@ import json
 import re
 import os
 import urllib.request
-from google_images_download import google_images_download
+import utils.utils as utils
+import google.google_images_download as google_images_download
 
+config = configparser.RawConfigParser()
+config.read('properties.config')
 
 def treatment(user):
-    config = configparser.RawConfigParser()
-    config.read('properties.config')
 
-    get_metadata_from_username(user, config)
-    download_img_from_metadata(user, config)
+    get_metadata_from_username(user)
+    #download_img_from_metadata(user)
 
     #check_fileinfo(config.get('GoogleImages', 'googleimages.outputdirectory') + "/" + user)
 
 
-def get_metadata_from_username(user, config):
+def get_metadata_from_username(user):
     limit = config.get('GoogleImages', 'googleimages.limit')
 
     # class instantiation
@@ -24,19 +25,19 @@ def get_metadata_from_username(user, config):
 
     # creating list of arguments
     arguments = {"keywords": user, "limit": limit,
-                 "extract_metadata": True, "no_download": True,
-                 "output_directory": "logs", "no_directory": True,
-                 "type":"face"}
+                 "extract_metadata": True,
+                 #"no_download": True,
+                 "output_directory": utils.get_directory_from_property('GoogleImages', 'googleimages.imagesdirectory'),
+                 #"no_directory": True,
+                 "type":"photo"
+                 }
     # passing the arguments to the function and get metadata
     response.download(arguments)
 
 
-def download_img_from_metadata(user, config):
-    fname = "logs/" + user + ".json"
-    output_directory = "google/"+config.get('GoogleImages', 'googleimages.outputdirectory') + "/" + user
-
-    if not os.path.exists(output_directory):
-        os.makedirs(output_directory)
+def download_img_from_metadata(user):
+    fname = utils.get_directory_from_property('GoogleImages', 'googleimages.metadatadirectory')+ user + ".json"
+    output_directory =utils.get_directory_from_property('GoogleImages', 'googleimages.imagesdirectory') + user
 
     with open(fname) as json_file:
         data = json.load(json_file)

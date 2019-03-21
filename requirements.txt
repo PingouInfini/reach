@@ -1,4 +1,3 @@
-google-images-download
 configparser
 tweepy
 matplotlib

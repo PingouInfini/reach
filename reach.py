@@ -3,6 +3,7 @@ import sys
 import logging
 import google.googleimages
 import twitter.twitter
+import utils.utils as utils
 
 import dataviz.foliummap
 
@@ -21,8 +22,9 @@ if __name__ == '__main__':
     config = configparser.RawConfigParser()
     config.read('properties.config')
     logging.basicConfig(stream=sys.stderr, level=logging.INFO)
-    if (config['Debug'].getboolean('verbose.active') == True):
+    if utils.get_boolean_from_property('Debug', 'verbose.active') == True:
         logging.getLogger().setLevel(logging.DEBUG)
+
 
     ### GOOGLE IMAGES
     if (config['ActiveComponents'].getboolean('component.googleimages.activate') == True):
