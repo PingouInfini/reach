@@ -1,0 +1,8 @@
+google-images-download
+configparser
+tweepy
+matplotlib
+wordcloud
+stop-words
+folium
+geopy
