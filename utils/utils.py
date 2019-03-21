@@ -4,6 +4,7 @@ import os
 config = configparser.RawConfigParser()
 config.read('properties.config')
 
+
 def get_directory_from_property(section, parameter):
     directory = config.get(section, parameter)
     if not directory.endswith('/'):
@@ -14,5 +15,14 @@ def get_directory_from_property(section, parameter):
 
     return directory
 
+
 def get_boolean_from_property(section, parameter):
     return config[section].getboolean(parameter)
+
+
+def get_int_from_property(section, parameter):
+    return config[section].getint(parameter)
+
+
+def get_property(section, parameter):
+    return config.get(section, parameter)

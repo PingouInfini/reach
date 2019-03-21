@@ -24,7 +24,6 @@ import json
 import re
 import logging
 import codecs
-import requests
 import utils.utils as utils
 
 args_list = ["keywords", "keywords_from_file", "prefix_keywords", "suffix_keywords",

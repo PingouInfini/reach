@@ -1,44 +1,33 @@
 import os
 import io
 import json
-import configparser
 import requests
+import utils.utils as utils
 from tweepy import Cursor
 
-config = configparser.RawConfigParser()
-config.read('properties.config')
 
 
 def get_user_tweet(api, user):
     if user != "":
-        pages= (config['Twitter'].getint('twitter.timeline.limit') // 200) +1
+        pages = (utils.get_int_from_property('Twitter', 'twitter.timeline.limit') // 200) + 1
         for page in Cursor(api.user_timeline, screen_name=user, count=200).pages(pages):
             for status in page:
                 tweet = status._json
-                save_1_tweet(config.get('Twitter', 'twitter.timeline.outputtweet'),
-                             config.get('Twitter', 'twitter.timeline.outputmedia'),
+                save_1_tweet(utils.get_directory_from_property('Twitter', 'twitter.timeline.outputtweet'),
+                             utils.get_directory_from_property('Twitter', 'twitter.timeline.outputmedia'),
                              tweet, tweet['id_str'])
-        # new_tweets = api.user_timeline(screen_name=user, count=config.get('Twitter', 'twitter.timeline.limit'))
-        # save_tweets_as_json(config.get('Twitter', 'twitter.timeline.outputtweet'),
-        #                     config.get('Twitter', 'twitter.timeline.outputmedia'),
-        #                     new_tweets)
 
 
 def get_tweet_from_keywords(api, keywords):
     if keywords != "":
-        pages= (config['Twitter'].getint('twitter.keywords.limit') // 200) +1
+        keywords = "\"" + keywords + "\""
+        pages = (utils.get_int_from_property('Twitter', 'twitter.keywords.limit') // 200) + 1
         for page in Cursor(api.search, q=keywords, count=200).pages(pages):
             for status in page:
                 tweet = status._json
-                save_1_tweet(config.get('Twitter', 'twitter.keywords.outputtweet'),
-                             config.get('Twitter', 'twitter.keywords.outputmedia'),
+                save_1_tweet(utils.get_directory_from_property('Twitter', 'twitter.keywords.outputtweet'),
+                             utils.get_directory_from_property('Twitter', 'twitter.keywords.outputmedia'),
                              tweet, tweet['id_str'])
-        # new_tweets = api.search(q=keywords, count=config.get('Twitter', 'twitter.keywords.limit'))
-        # save_tweets_as_json(config.get('Twitter', 'twitter.keywords.outputtweet'),
-        #                     config.get('Twitter', 'twitter.keywords.outputmedia'),
-        #                     new_tweets)
-
-
 
 
 def save_tweets_as_json(jsonoutput, mediaoutput, tweetslist):
@@ -55,7 +44,7 @@ def save_1_tweet(jsonoutput, mediaoutput, tweet, id_str):
         os.makedirs(jsonoutput)
     with io.open(jsonoutput + '/' + id_str + '.json', 'w', encoding='utf-8') as jfile:
         jfile.write(json.dumps(tweet, ensure_ascii=False))
-    if (config['Twitter'].getboolean('twitter.savemedia') == True):
+    if (utils.get_boolean_from_property('Twitter', 'twitter.savemedia') == True):
         if not os.path.exists(mediaoutput):
             os.makedirs(mediaoutput)
         save_tweet_media(tweet, mediaoutput)

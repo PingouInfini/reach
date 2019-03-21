@@ -1,30 +1,29 @@
 import os
 import re
-import configparser
 import json
 import time
 import dataviz.wordcloud
 import dataviz.foliummap
 import dataviz.geographics
+import utils.utils as utils
 from collections import Counter
-
-config = configparser.RawConfigParser()
-config.read('properties.config')
 
 
 def draw_wordcloud_from_tweet(user):
     all_tweets = ""
     languages = Counter()
 
-    for file in os.listdir(config.get('Twitter', 'twitter.timeline.outputtweet')):
-        with open(config.get('Twitter', 'twitter.timeline.outputtweet') + "/" + file, encoding='utf-8') as f:
+    for file in os.listdir(utils.get_directory_from_property('Twitter', 'twitter.timeline.outputtweet')):
+        with open(utils.get_directory_from_property('Twitter', 'twitter.timeline.outputtweet') + file,
+                  encoding='utf-8') as f:
             tweet = json.load(f)
             all_tweets += ''.join(
                 re.sub(r'(https|http)?:\/\/(\w|\.|\/|\?|\=|\&|\%)*\b', '', tweet['text'], flags=re.MULTILINE))
             languages.update([tweet['lang']])
 
-    for file in os.listdir(config.get('Twitter', 'twitter.keywords.outputtweet')):
-        with open(config.get('Twitter', 'twitter.keywords.outputtweet') + "/" + file, encoding='utf-8') as f:
+    for file in os.listdir(utils.get_directory_from_property('Twitter', 'twitter.keywords.outputtweet')):
+        with open(utils.get_directory_from_property('Twitter', 'twitter.keywords.outputtweet') + file,
+                  encoding='utf-8') as f:
             tweet = json.load(f)
             all_tweets += ''.join(
                 re.sub(r'(https|http)?:\/\/(\w|\.|\/|\?|\=|\&|\%)*\b', '', tweet['text'], flags=re.MULTILINE))
@@ -38,15 +37,17 @@ def draw_wordcloud_from_tweet(user):
 def plot_data_in_map(user):
     map, group_sub_group = dataviz.foliummap.create_map([user, "others"])
 
-    for file in os.listdir(config.get('Twitter', 'twitter.timeline.outputtweet')):
-        with open(config.get('Twitter', 'twitter.timeline.outputtweet') + "/" + file, encoding='utf-8') as f:
+    for file in os.listdir(utils.get_directory_from_property('Twitter', 'twitter.timeline.outputtweet')):
+        with open(utils.get_directory_from_property('Twitter', 'twitter.timeline.outputtweet') + file,
+                  encoding='utf-8') as f:
             extract_coord_from_tweet(f, group_sub_group.get(user, "none"), map)
 
-    for file in os.listdir(config.get('Twitter', 'twitter.keywords.outputtweet')):
-        with open(config.get('Twitter', 'twitter.keywords.outputtweet') + "/" + file, encoding='utf-8') as f:
+    for file in os.listdir(utils.get_directory_from_property('Twitter', 'twitter.keywords.outputtweet')):
+        with open(utils.get_directory_from_property('Twitter', 'twitter.keywords.outputtweet') + file,
+                  encoding='utf-8') as f:
             extract_coord_from_tweet(f, group_sub_group.get('others', "none"), map)
 
-    dataviz.foliummap.save_map(map, config.get('FoliumMap', 'foliummap.outputdirectory'), user+".html")
+    dataviz.foliummap.save_map(map, utils.get_directory_from_property('FoliumMap', 'foliummap.outputdirectory'), user + ".html")
 
 
 def extract_coord_from_tweet(f, sub_group, map):
@@ -128,4 +129,3 @@ def add_media_if_exists(tweet):
     except:
         # pas de media...
         return ""
-

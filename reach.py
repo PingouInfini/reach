@@ -5,8 +5,6 @@ import google.googleimages
 import twitter.twitter
 import utils.utils as utils
 
-import dataviz.foliummap
-
 def usage():
     print("Usage:")
     print("python {} <username>".format(sys.argv[0]))
