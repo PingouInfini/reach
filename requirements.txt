@@ -5,3 +5,8 @@ wordcloud
 stop-words
 folium
 geopy
+nltk
+bs4
+spacy
+html5lib
+IPython
