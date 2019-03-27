@@ -1,10 +1,23 @@
     python -m spacy download xx_ent_wiki_sm
 	
+Tuto:
 	
-https://blog.sicara.com/train-ner-model-with-nltk-stanford-tagger-english-french-german-6d90573a9486
+- https://blog.sicara.com/train-ner-model-with-nltk-stanford-tagger-english-french-german-6d90573a9486
 
-https://nlp.stanford.edu/software/CRF-NER.html#Download
+Download lib:
 
-https://github.com/EuropeanaNewspapers/ner-corpora
+- https://nlp.stanford.edu/software/CRF-NER.html#Download
 
-http://lab.kb.nl/dataset/europeana-newspapers-ner#access
+Corpus from newspaper (FR, DE, NL)
+
+- https://github.com/EuropeanaNewspapers/ner-corpora
+
+
+
+## Train you own model
+
+Check "tuto" -> ~15-20 min to prepare it
+
+    java -cp "stanford-ner.jar" -mx4g edu.stanford.nlp.ie.crf.CRFClassifier -prop train/prop.txt
+    
+    
