@@ -4,8 +4,10 @@
 1) Installation des libs nécessaires
 
        pip install -r requirements.txt
+
+2) Complete *twitter/twitterCredentials.txt* with twitter tokens from [https://developer.twitter.com/en/apps] 
     
-2) unzip
+3) unzip
               
        "stanfordner/stanford-ner/classifiers/trained-ner-model-french-ser.zip"
 
