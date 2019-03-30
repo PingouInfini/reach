@@ -1,9 +1,18 @@
 # reach
 
 ## Prerequis
-Installation des libs nécessaires
+1) Installation des libs nécessaires
 
-    pip install -r requirements.txt
+       pip install -r requirements.txt
+    
+2) unzip
+              
+       "stanfordner/stanford-ner/classifiers/trained-ner-model-french-ser.zip"
+
+   and move file to get\
+        
+       "stanfordner/stanford-ner/classifiers/trained-ner-model-french-ser.giz"
+
     
 ## USAGE
 - Parameters are defined in file **"properties.config"**

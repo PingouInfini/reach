@@ -3,7 +3,7 @@ import sys
 import logging
 import google.googleimages
 import twitter.twitter
-import ner.stanford
+import stanfordner.stanford
 import utils.utils as utils
 
 def usage():
@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     ### NER
     if (config['ActiveComponents'].getboolean('component.ner.activate') == True):
-        ner.stanford.process(user)
+        stanfordner.stanford.process(user)
     else:
         logging.debug("component.ner.activate = FALSE")

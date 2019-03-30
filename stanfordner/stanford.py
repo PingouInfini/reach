@@ -6,8 +6,8 @@ import utils.utils as utils
 from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
 
-jar = 'ner/stanford-ner/stanford-ner.jar'
-model = 'ner/stanford-ner/classifiers/trained-ner-model-french-ser.giz'
+jar = 'stanfordner/stanford-ner/stanford-ner.jar'
+model = 'stanfordner/stanford-ner/classifiers/trained-ner-model-french-ser.giz'
 
 st = StanfordNERTagger(model, jar, encoding='utf8')
 
