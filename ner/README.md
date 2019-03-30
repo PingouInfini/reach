@@ -1,5 +1,14 @@
-    python -m spacy download xx_ent_wiki_sm
+## Prerequis
+
+unzip
+- "stanford-ner/classifiers/trained-ner-model-french-ser.zip"
+
+and move file to get\
+- "stanford-ner/classifiers/trained-ner-model-french-ser.giz"
+
 	
+===
+
 Tuto:
 	
 - https://blog.sicara.com/train-ner-model-with-nltk-stanford-tagger-english-french-german-6d90573a9486
